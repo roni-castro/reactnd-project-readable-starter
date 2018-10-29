@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardTitle, CardText, Container, Row, Col, Badge } from 'reactstrap'
+import { Card, CardTitle, CardText, Container, Row, Col } from 'reactstrap'
 import * as moment from 'moment';
-import { MdThumbDown, MdThumbUp } from "react-icons/md";
+import { VoteUpAndDown } from './VoteUpAndDown'
 
 export const ListCard = ({posts}) => (
     <div>
@@ -10,10 +10,7 @@ export const ListCard = ({posts}) => (
             <Container key={post.id}>
                 <Row>
                     <Col xs="auto">
-                        <MdThumbUp size={24}/>
-                        <Badge color="secondary">1</Badge>
-                        <MdThumbDown size={24}/>
-                        <Badge color="secondary">4</Badge>
+                       <VoteUpAndDown quantityOfVotes={post.voteScore}/>
                     </Col>
                     <Col>
                         <Card body outline color="secondary">
