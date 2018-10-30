@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'reactstrap'
 import { PostCard } from './PostCard'
 import { VoteUpAndDown } from './VoteUpAndDown'
 
-export const ListCard = ({posts}) => (
+export const PostCardList = ({posts}) => (
     <div>
         {posts.map((post) => (
             <Container key={post.id}>
@@ -22,6 +22,6 @@ export const ListCard = ({posts}) => (
     </div>
 )
 
-ListCard.propTypes = {
+PostCardList.propTypes = {
     posts: PropTypes.array.isRequired
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ListCard } from './ListCard';
+import { PostCardList } from './PostCardList';
 import * as ServerAPI from '../ServerAPI'
 
 export class Home extends React.Component {
@@ -24,7 +24,7 @@ export class Home extends React.Component {
         return (
             <div>
                 <h1>Home</h1>
-                <ListCard posts={this.state.posts}/>
+                <PostCardList posts={this.state.posts}/>
             </div>
         )
     }
