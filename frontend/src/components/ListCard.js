@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, CardTitle, CardText, Container, Row, Col } from 'reactstrap'
-import * as moment from 'moment';
+import { Container, Row, Col } from 'reactstrap'
+import { PostCard } from './PostCard'
 import { VoteUpAndDown } from './VoteUpAndDown'
 
 export const ListCard = ({posts}) => (
@@ -13,15 +13,7 @@ export const ListCard = ({posts}) => (
                        <VoteUpAndDown quantityOfVotes={post.voteScore}/>
                     </Col>
                     <Col>
-                        <Card body outline color="secondary">
-                            <CardTitle>{post.title}</CardTitle>
-                            <CardText>{post.body}</CardText>
-                            <CardText>
-                                <small className="text-muted">{`Created by ${post.author} 
-                                    on: ${moment(post.timestamp).format("LLL")}`}
-                                </small>
-                            </CardText>
-                        </Card>
+                       <PostCard post={post}/>
                     </Col>
                 </Row>
             </Container>
