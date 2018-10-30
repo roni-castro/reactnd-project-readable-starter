@@ -11,6 +11,18 @@ export class Home extends React.Component {
         this.getAllPosts()
     } 
 
+    onVoteUp = (postId) => {
+        ServerAPI.updateVote(postId, "upVote").then((post) => {
+            this.getAllPosts()
+        })
+    }
+
+    onVoteDown = (postId) => {
+        ServerAPI.updateVote(postId, "downVote").then((post) => {
+            this.getAllPosts()
+        })
+    }
+
     getAllPosts() {
         ServerAPI.getAllPosts().then((posts) => {
             console.log(posts)
@@ -24,7 +36,7 @@ export class Home extends React.Component {
         return (
             <div>
                 <h1>Home</h1>
-                <PostCardList posts={this.state.posts}/>
+                <PostCardList posts={this.state.posts} onVoteUp={this.onVoteUp} onVoteDown={this.onVoteDown}/>
             </div>
         )
     }
