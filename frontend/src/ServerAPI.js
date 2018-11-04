@@ -21,10 +21,21 @@ export const getAllPosts = () =>
 
 export const updateVote = (id, params) => 
   fetch(`${api}/posts/${id}`, {
-    credentials: 'same-origin', 
     method: 'POST',
     body: JSON.stringify({option: params}),
     headers,
   })
   .then(response => response.json())
   .catch(err => console.log(err))
+
+  export const createPost = (post) => {
+    console.log(`${api}/posts ----` +  JSON.stringify(post))
+    fetch(`${api}/posts`, {
+      method: 'POST',
+      body: JSON.stringify(post),
+      headers,
+    })
+    .then(res => res.json())
+    .catch(err => console.log(err))
+  }
+   
