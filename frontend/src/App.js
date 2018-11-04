@@ -4,6 +4,7 @@ import NavDropdownMenu from './components/NavDropdownMenu';
 import { Home } from './components/Home';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import * as ServerAPI from './ServerAPI'
+import { AddOrEditPost }  from './components/AddOrEditPost';
 
 class App extends Component {
   state = {
@@ -33,7 +34,12 @@ class App extends Component {
                <Route key={category.name} path={`${category.path}`} />
             ))}
           <Route exact path="/" component={Home}/>
-         
+          <Route exact path="/post" render={() => (
+            <AddOrEditPost 
+              categories={this.state.categories}
+              onPostCreated={this.onPostCreated}
+            />
+          )}/>
         </div>
       </Router>
     );
