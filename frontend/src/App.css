@@ -30,3 +30,7 @@
     transform: rotate(360deg);
   }
 }
+
+.react-icons {
+  vertical-align: middle;
+}
