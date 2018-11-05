@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
   Collapse,
   Navbar,
@@ -18,12 +19,15 @@ class NavDropdownMenu extends React.Component {
       isOpen: false
     };
   }
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
   }
     render() {
+      console.log(this.props)
+      const { categories } = this.props;
       return (
         <div>
         <Navbar color="dark" dark expand="md">
@@ -34,7 +38,7 @@ class NavDropdownMenu extends React.Component {
               <NavItem>
                 <NavLink href="/">Home</NavLink>
               </NavItem>
-              {this.props.categories.map((category) => (
+              {categories.map((category) => (
                 <NavItem key={category.name} >
                   <NavLink href={`${category.path}`}>{category.name}</NavLink>
                 </NavItem>
@@ -47,5 +51,9 @@ class NavDropdownMenu extends React.Component {
     }
   }
 
-  export default NavDropdownMenu
+  const mapStateToProps = (state) => ({
+    categories: state.categoryReducer.categories || []
+  });
+  
+  export default connect(mapStateToProps)(NavDropdownMenu);
   

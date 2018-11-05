@@ -1,49 +1,56 @@
 import React, { Component } from 'react';
 import './App.css';
+import PropTypes from 'prop-types';
 import NavDropdownMenu from './components/NavDropdownMenu';
 import { Home } from './components/Home';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import * as ServerAPI from './ServerAPI'
+import { Route, Switch, withRouter } from 'react-router-dom';
 import { AddOrEditPost }  from './components/AddOrEditPost';
+import { connect } from 'react-redux';
+import { fetchCategoriesAPI } from './actions/category';
 
 class App extends Component {
-  state = {
-    categories: []
-  }
 
   componentDidMount() {
-    this.getAllCategories()
-  } 
-
-  getAllCategories() {
-    console.log( "getAllCategories")
-    ServerAPI.getAll().then((categories) => {
-      console.log( categories)
-      this.setState({
-        categories
-      })
-    })
+    this.props.getCategories();
   }
 
   render() {
     return (
-      <Router>
-        <div>
-          <NavDropdownMenu categories={this.state.categories} />
-            {this.state.categories.map((category) => (
-               <Route key={category.name} path={`${category.path}`} />
-            ))}
-          <Route exact path="/" component={Home}/>
-          <Route exact path="/post" render={() => (
-            <AddOrEditPost 
-              categories={this.state.categories}
-              onPostCreated={this.onPostCreated}
-            />
-          )}/>
-        </div>
-      </Router>
+        // <div>
+          
+        //     {/* {this.state.categories.map((category) => (
+        //        <Route key={category.name} path={`${category.path}`} />
+        //     ))} */}
+        //   <Route exact path="/" component={Home}/>
+        //   <Route exact path="/post" render={() => (
+        //     <AddOrEditPost  
+        //       // categories={this.state.categories}
+        //       // onPostCreated={this.onPostCreated}
+        //     />
+        //   )}/>
+        // </div>
+      <div>
+        <NavDropdownMenu />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          {/* <Route exact path="/" component={PostForm} /> */}
+          <Route exact path="/category/:category" component={AddOrEditPost} />
+          {/* <Route path="/category/:category/:postId" component={PostDetails} /> */}
+          {/* <Route component={NotFound} /> */}
+        </Switch>
+      </div>
     );
   }
 }
 
-export default App;
+App.propTypes = {
+  getCategories: PropTypes.func,
+  getPosts: PropTypes.func
+};
+
+export default withRouter(
+  connect(null, {
+    getCategories: fetchCategoriesAPI,
+    // getPosts: postsAPI
+  })(App)
+);

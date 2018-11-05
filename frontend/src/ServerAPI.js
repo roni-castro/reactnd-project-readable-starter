@@ -9,7 +9,7 @@ const headers = {
   'Authorization': authorizationToken
 }
 
-export const getAll = () =>
+export const fetchAllCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
     .then(data => data.categories)
