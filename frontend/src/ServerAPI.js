@@ -9,7 +9,7 @@ const headers = {
   'Authorization': authorizationToken
 }
 
-export const getAll = () =>
+export const fetchAllCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
     .then(data => data.categories)
@@ -21,10 +21,18 @@ export const getAllPosts = () =>
 
 export const updateVote = (id, params) => 
   fetch(`${api}/posts/${id}`, {
-    credentials: 'same-origin', 
     method: 'POST',
     body: JSON.stringify({option: params}),
     headers,
   })
   .then(response => response.json())
   .catch(err => console.log(err))
+
+  export const createPost = (post) => 
+    fetch(`${api}/posts`, {
+      method: 'POST',
+      body: JSON.stringify(post),
+      headers,
+    })
+    .then(res => res.json())
+   
