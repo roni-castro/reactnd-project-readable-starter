@@ -28,14 +28,11 @@ export const updateVote = (id, params) =>
   .then(response => response.json())
   .catch(err => console.log(err))
 
-  export const createPost = (post) => {
-    console.log(`${api}/posts ----` +  JSON.stringify(post))
+  export const createPost = (post) => 
     fetch(`${api}/posts`, {
       method: 'POST',
       body: JSON.stringify(post),
       headers,
     })
     .then(res => res.json())
-    .catch(err => console.log(err))
-  }
    

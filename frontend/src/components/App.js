@@ -11,7 +11,7 @@ import { fetchCategoriesAPI } from '../actions/category';
 class App extends Component {
 
   componentDidMount() {
-    this.props.getCategories();
+    this.props.fetchCategoriesAPI();
   }
 
   render() {
@@ -50,7 +50,6 @@ App.propTypes = {
 
 export default withRouter(
   connect(null, {
-    getCategories: fetchCategoriesAPI,
-    // getPosts: postsAPI
+    fetchCategoriesAPI: fetchCategoriesAPI
   })(App)
 );

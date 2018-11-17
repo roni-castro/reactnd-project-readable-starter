@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, FormGroup, Label, Input, Col, Card, Button } from 'reactstrap';
-import * as ServerAPI from '../ServerAPI';
 import * as uuidv4 from 'uuid';
+import { newPostAPI } from '../actions/post';
 class AddOrEditPost extends React.Component {
     state = {
         post: {
@@ -15,7 +15,7 @@ class AddOrEditPost extends React.Component {
             category: null
         }
     }
-
+    
     handleChange = (event) => {
         this.setState({
             post: {
@@ -25,15 +25,21 @@ class AddOrEditPost extends React.Component {
         })
     }
 
-    onSubmit = () => {
-        ServerAPI.createPost({
+    // onPostSuccess = (response) => {
+    //     this.props.history.push(`/post/${response.id}`);
+    // }
+
+    onSubmit = (event) => {
+        event.preventDefault()
+
+        const body = {
             ...this.state.post,
             id: uuidv4(),
             timestamp: Date.now()
-        }).then((post) => {
-            console.log("Criado" + post)
-            this.props.onPostCreated(post)
-        })
+        }
+
+        this.props.newPost(body)
+        this.props.history.push('/');
     }
 
     render() {
@@ -87,4 +93,10 @@ function mapStateToProps({categoryReducer}) {
     }
 }
 
-export default (connect(mapStateToProps)(AddOrEditPost));
+function mapDispatchToProps(dispatch) {
+    return {
+        newPost: (data) => dispatch(newPostAPI(data))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddOrEditPost);
