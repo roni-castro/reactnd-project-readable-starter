@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../App.css';
 import PropTypes from 'prop-types';
 import NavDropdownMenu from './NavDropdownMenu';
-import { Home } from './Home';
+import Home from './Home';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import AddOrEditPost  from './AddOrEditPost';
 import { connect } from 'react-redux';
