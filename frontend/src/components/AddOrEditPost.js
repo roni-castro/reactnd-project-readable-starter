@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, FormGroup, Label, Input, Col, Card, Button } from 'reactstrap';
 import * as uuidv4 from 'uuid';
