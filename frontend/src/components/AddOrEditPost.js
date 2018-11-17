@@ -1,9 +1,10 @@
 import React from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Form, FormGroup, Label, Input, Col, Card, Button } from 'reactstrap';
 import * as ServerAPI from '../ServerAPI';
 import * as uuidv4 from 'uuid';
-
-export class AddOrEditPost extends React.Component {
+class AddOrEditPost extends React.Component {
     state = {
         post: {
             id: null,
@@ -13,10 +14,6 @@ export class AddOrEditPost extends React.Component {
             author: "",
             category: null
         }
-    }
-
-    componentDidMount() {
-        console.log(this.props)
     }
 
     handleChange = (event) => {
@@ -40,7 +37,7 @@ export class AddOrEditPost extends React.Component {
     }
 
     render() {
-        const {categories} = this.props || {}
+        const {categories} = this.props
         return (
             <div>
                 <h1>Create new Post</h1>
@@ -83,3 +80,11 @@ export class AddOrEditPost extends React.Component {
         )
     }
 }
+
+function mapStateToProps({categoryReducer}) {
+    return {
+        categories: categoryReducer.categories || []
+    }
+}
+
+export default (connect(mapStateToProps)(AddOrEditPost));

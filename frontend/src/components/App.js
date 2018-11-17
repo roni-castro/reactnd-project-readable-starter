@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
+import '../App.css';
 import PropTypes from 'prop-types';
-import NavDropdownMenu from './components/NavDropdownMenu';
-import { Home } from './components/Home';
+import NavDropdownMenu from './NavDropdownMenu';
+import { Home } from './Home';
 import { Route, Switch, withRouter } from 'react-router-dom';
-import { AddOrEditPost }  from './components/AddOrEditPost';
+import AddOrEditPost  from './AddOrEditPost';
 import { connect } from 'react-redux';
-import { fetchCategoriesAPI } from './actions/category';
+import { fetchCategoriesAPI } from '../actions/category';
 
 class App extends Component {
 
@@ -33,7 +33,7 @@ class App extends Component {
         <NavDropdownMenu />
         <Switch>
           <Route exact path="/" component={Home} />
-          {/* <Route exact path="/" component={PostForm} /> */}
+          <Route exact path="/post" component={AddOrEditPost} />
           <Route exact path="/category/:category" component={AddOrEditPost} />
           {/* <Route path="/category/:category/:postId" component={PostDetails} /> */}
           {/* <Route component={NotFound} /> */}

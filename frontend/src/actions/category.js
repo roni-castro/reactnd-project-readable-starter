@@ -11,7 +11,6 @@ export const fetchCategoriesAPI = () => dispatch => {
         ServerAPI
         .fetchAllCategories()
         .then(categories => {
-            console.log(categories)
             dispatch(getAllCategories(categories))
         })
     )
