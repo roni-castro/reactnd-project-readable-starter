@@ -2,7 +2,9 @@ import {
     GET_POSTS_SUCCESS,
     GET_POSTS_FAILURE,
     NEW_POST_SUCCESS,
-    NEW_POST_FAILURE
+    NEW_POST_FAILURE,
+    UP_VOTE_SUCCESS,
+    UP_VOTE_FAILURE,
 } from '../actions' 
 
 const initialState = {
@@ -22,6 +24,16 @@ export function postReducer(state = initialState, action) {
                 ...state,
                 error: action.payload,
                 posts: []
+            }
+        case UP_VOTE_SUCCESS:
+            return {
+                ...state,
+                posts: state.posts.map(post => post.id === action.payload.id ? action.payload : post), 
+            }
+        case UP_VOTE_FAILURE:
+            return {
+                ...state,
+                error: action.payload
             }
         case NEW_POST_SUCCESS:
             return {

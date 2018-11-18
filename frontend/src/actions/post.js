@@ -3,12 +3,10 @@ import {
     NEW_POST_SUCCESS, 
     NEW_POST_FAILURE, 
     GET_POSTS_SUCCESS,
-    GET_POSTS_FAILURE
+    GET_POSTS_FAILURE,
+    UP_VOTE_SUCCESS,
+    UP_VOTE_FAILURE,
 } from './index'
-import { 
-    VOTE_FILTER_TYPE, 
-    TIMESTAMP_FILTER_TYPE
-} from '../utils/Constants'
 
 const onNewPostSuccess = (post) => ({
     type: NEW_POST_SUCCESS,
@@ -20,21 +18,6 @@ const onNewPostError = (error) => ({
     payload: error
 })
 
-
-// export function newPost(formData, callback) {
-// return dispatch => {
-//     dispatch(newPostBegin())
-//     axios.post(`${API_ENDPOINT}/posts`, data)
-//       .then(res => {
-//         callback(res.data)
-//         dispatch(newPostSuccess(res.data))
-//       })
-//       .catch(error => dispatch(newPostFailure(error)))
-    
-//   }
-// }
-
-
 export function newPostAPI(post) {
     return (dispatch) => {
         ServerAPI
@@ -44,26 +27,12 @@ export function newPostAPI(post) {
     }
 }
 
-export function getPostsAPI(filterSelectedId) {
+export function getPostsAPI() {
     return (dispatch) => {
         ServerAPI
         .getAllPosts()
-        .then((posts) => {
-            let filteredPosts = orderPosts(filterSelectedId, posts)
-            console.log(posts)
-            dispatch(onGetPostsSuccess(filteredPosts))
-        })
-        .catch((err) => dispatch(onGetPostsError(err)))
-    }
-}
-
-function orderPosts(filterSelectedId, posts) {
-    if(filterSelectedId === TIMESTAMP_FILTER_TYPE) {
-       return posts.sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp))
-    } else if(filterSelectedId === VOTE_FILTER_TYPE) {
-       return posts.sort((a,b) => b.voteScore - a.voteScore) 
-    } else {
-        return posts
+        .then((posts) => dispatch(onGetPostsSuccess(posts)))
+        .catch((err) =>  dispatch(onGetPostsError(err)))
     }
 }
 
@@ -74,5 +43,24 @@ const onGetPostsSuccess = (posts) => ({
 
 const onGetPostsError = (error) => ({
     type: GET_POSTS_FAILURE,
+    payload: error
+})
+
+export function updateVoteAPI(postId, voteType) {
+    return (dispatch) => {
+        ServerAPI
+        .updateVote(postId, voteType)
+        .then((post) => dispatch(onUpdateVoteSuccess(post)))
+        .catch((err) => dispatch(onUpdateVoteError(err)))
+    }
+}
+
+const onUpdateVoteSuccess = (post) => ({
+    type: UP_VOTE_SUCCESS,
+    payload: post
+})
+
+const onUpdateVoteError = (error) => ({
+    type: UP_VOTE_FAILURE,
     payload: error
 })

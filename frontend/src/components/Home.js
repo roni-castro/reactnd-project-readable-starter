@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { PostCardList } from './PostCardList';
 import { FilterSelect } from './FilterSelect';
 import * as ServerAPI from '../ServerAPI';
-import { getPostsAPI } from '../actions/post';
+import { getPostsAPI, updateVoteAPI } from '../actions/post';
 import 
 { 
     VOTE_FILTER_TYPE, 
@@ -20,49 +20,18 @@ class Home extends React.Component {
     }
     
     componentDidMount() {
-        this.props.getPosts(this.state.filterSelectedId)
+        this.props.getPosts()
     } 
-
-    onVoteUp = (postId) => {
-        ServerAPI.updateVote(postId, "upVote").then((post) => {
-            this.props.getPosts(this.state.filterSelectedId)
-        })
-    }
-
-    onVoteDown = (postId) => {
-        ServerAPI.updateVote(postId, "downVote").then((post) => {
-            this.props.getPosts(this.state.filterSelectedId)
-        })
-    }
 
     onFilterSelected = (event) => {
         let filterSelectedId = event.target.value
         this.setState({ filterSelectedId })
-        this.props.getPosts(filterSelectedId)
+        this.props.getPosts()
     }
 
-    // getAllPosts() {
-    //     ServerAPI.getAllPosts().then((posts) => {
-    //         posts = this.orderPosts(this.state.filterSelectedId, posts)
-    //         this.setState({
-    //             posts
-    //         })
-    //     })
-    // }
-
-    // orderPosts(filterSelectedId, posts) {
-    //     if(filterSelectedId === TIMESTAMP_FILTER_TYPE) {
-    //        return posts.sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp))
-    //     } else if(filterSelectedId === VOTE_FILTER_TYPE) {
-    //        return posts.sort((a,b) => b.voteScore - a.voteScore) 
-    //     } else {
-    //         return posts
-    //     }
-    // }
-
     render() {
-        let {posts} = this.props
-        console.log(posts)
+        let {posts, upVote, downVote} = this.props
+        let filteredPosts = orderPosts(this.state.filterSelectedId, posts)
         return (
             <div>
                 <h1>Home</h1>
@@ -71,11 +40,22 @@ class Home extends React.Component {
                     optionSelectedId={this.state.filterSelectedId}
                     onFilterSelected={this.onFilterSelected} 
                 />
-                <PostCardList posts={posts} onVoteUp={this.onVoteUp} onVoteDown={this.onVoteDown}/>
+                <PostCardList posts={filteredPosts} onVoteUp={upVote} onVoteDown={downVote}/>
             </div>
         )
     }
 }
+
+function orderPosts(filterSelectedId, posts) {
+    if(filterSelectedId === TIMESTAMP_FILTER_TYPE) {
+       return posts.sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp))
+    } else if(filterSelectedId === VOTE_FILTER_TYPE) {
+       return posts.sort((a,b) => b.voteScore - a.voteScore) 
+    } else {
+        return posts
+    }
+}
+
 
 function mapStateTopProps({postReducer}) {
     return {
@@ -85,7 +65,9 @@ function mapStateTopProps({postReducer}) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        getPosts: (filterSelectedId) => dispatch(getPostsAPI(filterSelectedId))
+        getPosts: (filterSelectedId) => dispatch(getPostsAPI(filterSelectedId)),
+        upVote: (postId) => dispatch(updateVoteAPI(postId, "upVote")),
+        downVote: (postId) => dispatch(updateVoteAPI(postId, "downVote"))
     }
 }
 
