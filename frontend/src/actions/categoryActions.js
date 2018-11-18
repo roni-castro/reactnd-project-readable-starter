@@ -1,5 +1,5 @@
 import * as ServerAPI from '../ServerAPI';
-import { GET_ALL_CATEGORIES } from '../actions/index'
+import { GET_ALL_CATEGORIES } from './index'
 
 const getAllCategories = (categories) => ({
     type: GET_ALL_CATEGORIES,

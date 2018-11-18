@@ -6,7 +6,7 @@ import Home from './Home';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import AddOrEditPost  from './AddOrEditPost';
 import { connect } from 'react-redux';
-import { fetchCategoriesAPI } from '../actions/category';
+import { fetchCategoriesAPI } from '../actions/categoryActions';
 
 class App extends Component {
 

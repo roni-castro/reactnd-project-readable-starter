@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { PostCardList } from './PostCardList';
 import { FilterSelect } from './FilterSelect';
-import * as ServerAPI from '../ServerAPI';
-import { getPostsAPI, updateVoteAPI } from '../actions/post';
+import { getPostsAPI, updateVoteAPI } from '../actions/postActions';
 import 
 { 
     VOTE_FILTER_TYPE, 

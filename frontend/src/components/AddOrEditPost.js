@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Form, FormGroup, Label, Input, Col, Card, Button } from 'reactstrap';
 import * as uuidv4 from 'uuid';
-import { newPostAPI } from '../actions/post';
+import { newPostAPI } from '../actions/postActions';
 class AddOrEditPost extends React.Component {
     state = {
         post: {
