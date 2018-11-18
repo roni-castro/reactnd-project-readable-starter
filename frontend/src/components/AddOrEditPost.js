@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Form, FormGroup, Label, Input, Col, Card, Button } from 'reactstrap';
 import * as uuidv4 from 'uuid';
 import { newPostAPI } from '../actions/postActions';
+import NavDropdownMenu from './NavDropdownMenu';
 class AddOrEditPost extends React.Component {
     state = {
         post: {
@@ -45,6 +46,7 @@ class AddOrEditPost extends React.Component {
         const {categories} = this.props
         return (
             <div>
+                <NavDropdownMenu />
                 <h1>Create new Post</h1>
                 <Card body>
                     <Form onSubmit={this.onSubmit}>
