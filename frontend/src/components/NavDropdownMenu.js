@@ -20,6 +20,10 @@ class NavDropdownMenu extends React.Component {
     };
   }
 
+componentDidMount() {
+  console.log(this.props)
+}
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
@@ -40,7 +44,7 @@ class NavDropdownMenu extends React.Component {
               </NavItem>
               {categories.map((category) => (
                 <NavItem key={category.name} >
-                  <NavLink href={`${category.path}`}>{category.name}</NavLink>
+                  <NavLink href={`/category/${category.name}`}>{category.name}</NavLink>
                 </NavItem>
               ))}
             </Nav>
