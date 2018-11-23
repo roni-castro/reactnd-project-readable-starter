@@ -32,7 +32,6 @@ class PostBody extends React.Component {
     render() {
         let {posts, upVote, downVote, title, category} = this.props
         let filteredPosts = posts
-        console.log(category)
         if(category != null) {
             filteredPosts = posts.filter((post) => post.category === category)
         } 

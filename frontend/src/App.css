@@ -34,3 +34,9 @@
 .react-icons {
   vertical-align: middle;
 }
+
+.app-fab{
+  position: 'absolute';
+  bottom: 10;
+  right: 10;
+}
