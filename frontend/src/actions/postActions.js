@@ -6,6 +6,8 @@ import {
     GET_POSTS_FAILURE,
     UP_VOTE_SUCCESS,
     UP_VOTE_FAILURE,
+    GET_SPECIFIC_POST_SUCCESS,
+    GET_SPECIFIC_POST_FAILURE,
 } from './index'
 
 const onNewPostSuccess = (post) => ({
@@ -45,6 +47,29 @@ const onGetPostsError = (error) => ({
     type: GET_POSTS_FAILURE,
     payload: error
 })
+
+export function getPostAPI(postId) {
+    return (dispatch) => {
+        ServerAPI
+        .getPost(postId)
+        .then((post) => dispatch(onGetSpecificPostSuccess(post)))
+        .catch((err) => dispatch(onGetSpecificPostError(err)))
+    }
+}
+
+function onGetSpecificPostSuccess(post) {
+    return {
+        type: GET_SPECIFIC_POST_SUCCESS,
+        payload: post
+    }
+}
+
+function onGetSpecificPostError(err) {
+    return {
+        type: GET_SPECIFIC_POST_FAILURE,
+        payload: err
+    }
+}
 
 export function updateVoteAPI(postId, voteType) {
     return (dispatch) => {

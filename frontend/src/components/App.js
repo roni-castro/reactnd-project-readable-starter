@@ -7,6 +7,7 @@ import Category  from './Category';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchCategoriesAPI } from '../actions/categoryActions';
+import { PostDetailContent } from './PostDetailContent';
 
 class App extends Component {
 
@@ -35,6 +36,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/post" component={AddOrEditPost} />
           <Route exact path="/category/:categoryPath" component={ Category } />
+          <Route exact path="/post/:postId" component={ PostDetailContent } />
           {/* <Route path="/category/:category/:postId" component={PostDetails} /> */}
           {/* <Route component={NotFound} /> */}
         </Switch>
