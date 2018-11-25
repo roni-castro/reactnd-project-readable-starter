@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { Home } from './Home';
 import AddOrEditPost  from './AddOrEditPost';
 import Category  from './Category';
+import PostDetailContent from './PostDetailContent';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchCategoriesAPI } from '../actions/categoryActions';
-import { PostDetailContent } from './PostDetailContent';
 
 class App extends Component {
 

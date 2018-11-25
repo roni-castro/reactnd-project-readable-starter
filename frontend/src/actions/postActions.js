@@ -6,8 +6,8 @@ import {
     GET_POSTS_FAILURE,
     UP_VOTE_SUCCESS,
     UP_VOTE_FAILURE,
-    GET_SPECIFIC_POST_SUCCESS,
-    GET_SPECIFIC_POST_FAILURE,
+    GET_SINGLE_POST_SUCCESS,
+    GET_SINGLE_POST_FAILURE,
 } from './index'
 
 const onNewPostSuccess = (post) => ({
@@ -48,7 +48,7 @@ const onGetPostsError = (error) => ({
     payload: error
 })
 
-export function getPostAPI(postId) {
+export function getPostByIdAPI(postId) {
     return (dispatch) => {
         ServerAPI
         .getPost(postId)
@@ -59,14 +59,14 @@ export function getPostAPI(postId) {
 
 function onGetSpecificPostSuccess(post) {
     return {
-        type: GET_SPECIFIC_POST_SUCCESS,
+        type: GET_SINGLE_POST_SUCCESS,
         payload: post
     }
 }
 
 function onGetSpecificPostError(err) {
     return {
-        type: GET_SPECIFIC_POST_FAILURE,
+        type: GET_SINGLE_POST_FAILURE,
         payload: err
     }
 }
