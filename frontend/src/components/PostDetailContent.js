@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Jumbotron, Button, ButtonGroup, Container, Row, Col, Badge } from 'reactstrap';
+import { ic_delete } from 'react-icons-kit/md/ic_delete';
+import { ic_mode_edit } from 'react-icons-kit/md/ic_mode_edit'
+import { Icon } from 'react-icons-kit'
 import * as moment from 'moment';
 import { connect } from 'react-redux';
 import { getPostByIdAPI } from '../actions/postActions';
@@ -24,7 +27,9 @@ class PostDetailContent extends React.Component {
                     <Col>
                         <Jumbotron>
                             <h1 className="display-3">{post.title}</h1>
-                            <caption><Badge color="secondary">{post.voteScore} votes</Badge></caption>
+                            <caption>
+                                <Badge color={post.voteScore >=0 ? "success" : "danger"}>{post.voteScore} points</Badge>
+                            </caption>
                             <hr className="my-2" />
                             <p>
                                 <small className="text-muted">{`Created by ${post.author} 
@@ -33,17 +38,18 @@ class PostDetailContent extends React.Component {
                             </p>
                             <p className="lead">
                                 <ButtonGroup>
-                                    <Button color="primary">Edit</Button>
-                                    <Button color="primary">Remove</Button>
+                                    <Button color="primary">
+                                        <Icon size={24} icon={ic_mode_edit} />
+                                    </Button>
+                                    <Button color="danger">
+                                        <Icon size={24} icon={ic_delete} />
+                                    </Button>
                                 </ButtonGroup>
                             </p>
                         </Jumbotron>
                     </Col>
                 </Row>
             </Container>
-
-
-               
             </div>
         )
     }
