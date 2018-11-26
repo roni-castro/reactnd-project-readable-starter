@@ -2,6 +2,8 @@ import * as ServerAPI from '../ServerAPI';
 import { 
     NEW_POST_SUCCESS, 
     NEW_POST_FAILURE, 
+    EDIT_POST_SUCCESS,
+    EDIT_POST_FAILURE,
     GET_POSTS_SUCCESS,
     GET_POSTS_FAILURE,
     UP_VOTE_SUCCESS,
@@ -11,6 +13,7 @@ import {
     DELETE_POST_SUCCESS,
     DELETE_POST_FAILURE,
 } from './index'
+import * as uuidv4 from 'uuid';
 
 const onNewPostSuccess = (post) => ({
     type: NEW_POST_SUCCESS,
@@ -23,6 +26,12 @@ const onNewPostError = (error) => ({
 })
 
 export function newPostAPI(post) {
+    post = {
+        ...post,
+        id: uuidv4(),
+        timestamp: Date.now()
+    }
+    
     return (dispatch) => {
         ServerAPI
         .createPost(post)
@@ -30,6 +39,28 @@ export function newPostAPI(post) {
         .catch(err => dispatch(onNewPostError(err)))
     }
 }
+
+export function editPostByIdAPI(post) {
+    console.log("1------")
+    console.log(post)
+    console.log("1------")
+    return (dispatch) => {
+        ServerAPI
+        .editPost(post)
+        .then(post => dispatch(onEditPostSuccess(post)))
+        .catch(err => dispatch(onEditPostError(err)))
+    }
+}
+
+const onEditPostSuccess = (post) => ({
+    type: EDIT_POST_SUCCESS,
+    payload: post
+})
+
+const onEditPostError = (error) => ({
+    type: EDIT_POST_FAILURE,
+    payload: error
+})
 
 export function getPostsAPI() {
     return (dispatch) => {

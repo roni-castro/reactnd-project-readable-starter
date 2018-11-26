@@ -29,7 +29,7 @@ class PostDetailContent extends React.Component {
     }
 
     onEditPostButtonClicked = () => {
-        alert("edit")
+        this.props.history.push(`/post/${this.props.post.id}/edit`);
     }
 
     deletePost = (postId) => {
@@ -84,7 +84,7 @@ PostDetailContent.propType = {
     post: PropTypes.object.isRequired
 }
 
-function mapStateToProps({ singlePostReducer, ownProps }) {
+function mapStateToProps({ singlePostReducer }) {
     return {
         post: singlePostReducer.post
     }

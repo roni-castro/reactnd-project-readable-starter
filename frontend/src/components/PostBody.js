@@ -65,7 +65,7 @@ function orderPosts(filterSelectedId, posts) {
 }
 
 
-function mapStateToProps({ postReducer, ownProps }) {
+function mapStateToProps({ postReducer}) {
     return {
         posts: postReducer.posts
     }
