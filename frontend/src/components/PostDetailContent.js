@@ -8,8 +8,13 @@ import * as moment from 'moment';
 import { connect } from 'react-redux';
 import { getPostByIdAPI } from '../actions/postActions';
 import NavDropdownMenu from './NavDropdownMenu';
+import ModalConfirmation from './ModalConfirmation'
 
 class PostDetailContent extends React.Component {
+
+    state = {
+        isModalDeleteOpen: false
+    }
     
     componentDidMount() {
         const { match } = this.props
@@ -17,12 +22,18 @@ class PostDetailContent extends React.Component {
         this.props.fetchPostById(postId)
     } 
 
-    onRemoveButtonClicked = () => {
-        alert("remove")
+    onRemovePostButtonClicked = () => {
+        this.setState({
+            isModalDeleteOpen: true
+        })
     }
 
-    onEditButtonClicked = () => {
+    onEditPostButtonClicked = () => {
         alert("edit")
+    }
+
+    deletePost = () => {
+        alert("deletePost")
     }
 
     render() {
@@ -30,6 +41,12 @@ class PostDetailContent extends React.Component {
         return (
             <div>
                 <NavDropdownMenu/>
+                <ModalConfirmation 
+                    title="Remover Post"
+                    message="Tem certeza que deseja remover este post?"
+                    show={this.state.isModalDeleteOpen}
+                    onConfirm={this.deletePost}
+                />
                 <Container key={post.id}>
                 <Row>
                     <Col>
@@ -45,16 +62,14 @@ class PostDetailContent extends React.Component {
                                 </small>
                             </p>
                             <hr className="my-3" />
-                            <p className="lead">
-                                <ButtonGroup color="red">
-                                    <Button onClick={(value) => this.onEditButtonClicked()} color="primary">
-                                        <Icon size={24} icon={ic_mode_edit} />
-                                    </Button>
-                                    <Button onClick={() => this.onRemoveButtonClicked()} color="danger">
-                                        <Icon size={24} icon={ic_delete} />
-                                    </Button>
-                                </ButtonGroup>
-                            </p>
+                            <ButtonGroup color="red">
+                                <Button onClick={() => this.onEditPostButtonClicked()} color="primary">
+                                    <Icon size={24} icon={ic_mode_edit} />
+                                </Button>
+                                <Button onClick={() => this.onRemovePostButtonClicked()} color="danger">
+                                    <Icon size={24} icon={ic_delete} />
+                                </Button>
+                            </ButtonGroup>
                         </Jumbotron>
                     </Col>
                 </Row>
