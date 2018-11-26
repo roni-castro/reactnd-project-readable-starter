@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Home } from './Home';
 import AddOrEditPost  from './AddOrEditPost';
 import Category  from './Category';
+import PostDetailContent from './PostDetailContent';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchCategoriesAPI } from '../actions/categoryActions';
@@ -35,6 +36,7 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/post" component={AddOrEditPost} />
           <Route exact path="/category/:categoryPath" component={ Category } />
+          <Route exact path="/post/:postId" component={ PostDetailContent } />
           {/* <Route path="/category/:category/:postId" component={PostDetails} /> */}
           {/* <Route component={NotFound} /> */}
         </Switch>

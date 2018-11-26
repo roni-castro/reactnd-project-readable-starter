@@ -1,6 +1,8 @@
 import { 
     GET_POSTS_SUCCESS,
     GET_POSTS_FAILURE,
+    GET_SINGLE_POST_SUCCESS,
+    GET_SINGLE_POST_FAILURE,
     NEW_POST_SUCCESS,
     NEW_POST_FAILURE,
     UP_VOTE_SUCCESS,
@@ -47,6 +49,30 @@ export function postReducer(state = initialState, action) {
               posts: []
         }
         default:
+            return state;
+    }
+}
+
+const singlePostStartState = {
+    post: {},
+    error: null
+};
+
+export function singlePostReducer(state = singlePostStartState, action) {
+    switch(action.type) {
+        case GET_SINGLE_POST_SUCCESS:
+            return {
+                ...state,
+                post: action.payload,
+                error: null
+            }
+        case GET_SINGLE_POST_FAILURE:
+            return {
+                ...state,
+                post: {},
+                error: action.payload
+            }
+        default: 
             return state;
     }
 }

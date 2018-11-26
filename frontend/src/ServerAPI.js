@@ -19,6 +19,10 @@ export const getAllPosts = () =>
       .then(res => res.json())
       .catch(err => console.log(err))
 
+export const getPost = (postId) => 
+  fetch(`${api}/posts/${postId}`, { headers })
+    .then(res => res.json())
+
 export const updateVote = (id, params) => 
   fetch(`${api}/posts/${id}`, {
     method: 'POST',
