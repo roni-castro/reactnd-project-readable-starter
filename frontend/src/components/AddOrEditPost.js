@@ -6,6 +6,7 @@ import NavDropdownMenu from './NavDropdownMenu';
 class AddOrEditPost extends React.Component {
     state = {
         isEditing: false,
+        isDisabledButton: false,
         post: {
             id: null,
             timestamp: null,
@@ -52,6 +53,9 @@ class AddOrEditPost extends React.Component {
 
     onSubmit = (event) => {
         event.preventDefault()
+        if(this.state.isDisabledButton){
+            return
+        }
 
         if(this.state.isEditing) {
             this.props.editPost(this.state.post)
@@ -60,6 +64,7 @@ class AddOrEditPost extends React.Component {
             this.props.newPost(this.state.post)
             this.props.history.push('/');
         }
+        this.setState({isDisabledButton: true});
     }
 
     render() {
@@ -102,7 +107,7 @@ class AddOrEditPost extends React.Component {
                                 </Input>
                             </Col>
                         </FormGroup>
-                        <Button type="submit" color="secondary" size="lg">{this.state.isEditing ? "Save" : "Create"}</Button>
+                        <Button type="submit" disabled={this.state.isDisabledButton} color="secondary" size="lg">{this.state.isEditing ? "Save" : "Create"}</Button>
                     </Form> 
                 </Card>
             </div>
