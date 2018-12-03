@@ -41,9 +41,6 @@ export function newPostAPI(post) {
 }
 
 export function editPostByIdAPI(post) {
-    console.log("1------")
-    console.log(post)
-    console.log("1------")
     return (dispatch) => {
         ServerAPI
         .editPost(post)
