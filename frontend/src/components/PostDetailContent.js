@@ -42,12 +42,12 @@ class PostDetailContent extends React.Component {
         return (
             <div>
                 <NavDropdownMenu/>
-                {this.state.isModalDeleteOpen && <ModalConfirmation 
+                <ModalConfirmation 
                     title="Remover Post"
                     message="Tem certeza que deseja remover este post?"
                     show={this.state.isModalDeleteOpen}
                     onConfirm={() => this.deletePost(post.id)}
-                />}
+                />
                 <Container key={post.id}>
                 <Row>
                     <Col>

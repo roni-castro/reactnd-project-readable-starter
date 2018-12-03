@@ -33,7 +33,6 @@ export const updateVote = (id, params) =>
   .catch(err => console.log(err))
 
 export const createPost = (post) => 
-<<<<<<< HEAD
   fetch(`${api}/posts`, {
     method: 'POST',
     body: JSON.stringify(post),
@@ -47,19 +46,11 @@ export const deletePostById = (postId) =>
     headers,
   })
   .then(res => res.json())
-=======
-    fetch(`${api}/posts`, {
-      method: 'POST',
-      body: JSON.stringify(post),
-      headers,
-    })
-    .then(res => res.json())
    
-  export const editPost = (post) => 
-    fetch(`${api}/posts/${post.id}`, {
-      method: 'PUT',
-      body: JSON.stringify(post),
-      headers,
-    })
-    .then(res => res.json())
->>>>>>> Edit post
+export const editPost = (post) => 
+  fetch(`${api}/posts/${post.id}`, {
+    method: 'PUT',
+    body: JSON.stringify(post),
+    headers,
+  })
+  .then(res => res.json())
