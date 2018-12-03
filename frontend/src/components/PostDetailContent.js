@@ -6,7 +6,7 @@ import { ic_mode_edit } from 'react-icons-kit/md/ic_mode_edit'
 import { Icon } from 'react-icons-kit'
 import * as moment from 'moment';
 import { connect } from 'react-redux';
-import { getPostByIdAPI } from '../actions/postActions';
+import { getPostByIdAPI, deletePostByIdAPI } from '../actions/postActions';
 import NavDropdownMenu from './NavDropdownMenu';
 import ModalConfirmation from './ModalConfirmation'
 
@@ -32,8 +32,10 @@ class PostDetailContent extends React.Component {
         alert("edit")
     }
 
-    deletePost = () => {
-        alert("deletePost")
+    deletePost = (postId) => {
+        console.log("deletePost")
+        this.props.deletePostById(postId)
+        this.props.history.push('/')
     }
 
     render() {
@@ -41,12 +43,12 @@ class PostDetailContent extends React.Component {
         return (
             <div>
                 <NavDropdownMenu/>
-                <ModalConfirmation 
+                {this.state.isModalDeleteOpen && <ModalConfirmation 
                     title="Remover Post"
                     message="Tem certeza que deseja remover este post?"
                     show={this.state.isModalDeleteOpen}
-                    onConfirm={this.deletePost}
-                />
+                    onConfirm={() => this.deletePost(post.id)}
+                />}
                 <Container key={post.id}>
                 <Row>
                     <Col>
@@ -92,6 +94,7 @@ function mapStateToProps({ singlePostReducer, ownProps }) {
 function mapDispatchToProps(dispatch) {
     return {
         fetchPostById: (postId) => dispatch(getPostByIdAPI(postId)),
+        deletePostById: (postId) => dispatch(deletePostByIdAPI(postId)),
         // upVote: (postId) => dispatch(updateVoteAPI(postId, "upVote")),
         // downVote: (postId) => dispatch(updateVoteAPI(postId, "downVote"))
     }

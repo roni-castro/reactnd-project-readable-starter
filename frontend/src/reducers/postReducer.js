@@ -7,6 +7,8 @@ import {
     NEW_POST_FAILURE,
     UP_VOTE_SUCCESS,
     UP_VOTE_FAILURE,
+    DELETE_POST_FAILURE,
+    DELETE_POST_SUCCESS,
 } from '../actions' 
 
 const initialState = {
@@ -48,6 +50,17 @@ export function postReducer(state = initialState, action) {
               error: action.payload,
               posts: []
         }
+        case DELETE_POST_SUCCESS:
+            return {
+                ...state,
+                posts: state.posts.filter((post) => post.id !== action.payload.id),
+                err: null
+            }
+        case DELETE_POST_FAILURE:
+            return {
+                ...state,
+                err: action.payload
+            }
         default:
             return state;
     }

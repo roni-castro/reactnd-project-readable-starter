@@ -8,6 +8,8 @@ import {
     UP_VOTE_FAILURE,
     GET_SINGLE_POST_SUCCESS,
     GET_SINGLE_POST_FAILURE,
+    DELETE_POST_SUCCESS,
+    DELETE_POST_FAILURE,
 } from './index'
 
 const onNewPostSuccess = (post) => ({
@@ -67,6 +69,29 @@ function onGetSpecificPostSuccess(post) {
 function onGetSpecificPostError(err) {
     return {
         type: GET_SINGLE_POST_FAILURE,
+        payload: err
+    }
+}
+
+export function deletePostByIdAPI(postId) {
+    return (dispatch) => {
+        ServerAPI
+        .deletePostById(postId)
+        .then((post) => dispatch(onDeletePostSuccessful(post)))
+        .catch((err) => dispatch(onDeletePostFailure(err)))
+    }
+}
+
+function onDeletePostSuccessful(post) {
+    return {
+        type: DELETE_POST_SUCCESS,
+        payload: post
+    }
+}
+
+function onDeletePostFailure(err) {
+    return {
+        type:DELETE_POST_FAILURE,
         payload: err
     }
 }

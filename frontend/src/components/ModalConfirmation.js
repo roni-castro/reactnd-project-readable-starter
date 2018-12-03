@@ -25,6 +25,7 @@ class ModalConfirmation extends React.Component {
   }
 
   onConfirm = () => {
+    console.log("onConfirm")
     this.toggle()
     this.props.onConfirm()
   }
@@ -38,8 +39,8 @@ class ModalConfirmation extends React.Component {
             {this.props.message}
           </ModalBody>
           <ModalFooter>
-            <Button color="danger" onClick={this.onConfirm}>Yes</Button>
-            <Button color="secondary" onClick={this.toggle}>No</Button>
+            <Button color="danger" onClick={() => this.onConfirm()}>Yes</Button>
+            <Button color="secondary" onClick={() => this.toggle()}>No</Button>
           </ModalFooter>
         </Modal>
       </div>
