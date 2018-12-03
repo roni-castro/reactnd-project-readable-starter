@@ -33,7 +33,6 @@ class PostDetailContent extends React.Component {
     }
 
     deletePost = (postId) => {
-        console.log("deletePost")
         this.props.deletePostById(postId)
         this.props.history.push('/')
     }

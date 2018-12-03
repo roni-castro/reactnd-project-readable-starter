@@ -25,7 +25,6 @@ class ModalConfirmation extends React.Component {
   }
 
   onConfirm = () => {
-    console.log("onConfirm")
     this.toggle()
     this.props.onConfirm()
   }
