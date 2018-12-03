@@ -5,6 +5,8 @@ import {
     GET_SINGLE_POST_FAILURE,
     NEW_POST_SUCCESS,
     NEW_POST_FAILURE,
+    EDIT_POST_SUCCESS,
+    EDIT_POST_FAILURE,
     UP_VOTE_SUCCESS,
     UP_VOTE_FAILURE,
     DELETE_POST_FAILURE,
@@ -85,6 +87,16 @@ export function singlePostReducer(state = singlePostStartState, action) {
                 post: {},
                 error: action.payload
             }
+        case EDIT_POST_SUCCESS:
+            return {
+                ...state,
+                post: action.payload,
+        }
+        case EDIT_POST_FAILURE:
+            return {
+              ...state,
+              error: action.payload
+        }
         default: 
             return state;
     }

@@ -37,6 +37,7 @@ class App extends Component {
           <Route exact path="/post" component={AddOrEditPost} />
           <Route exact path="/category/:categoryPath" component={ Category } />
           <Route exact path="/post/:postId" component={ PostDetailContent } />
+          <Route exact path="/post/:postId/edit" component={ AddOrEditPost } />
           {/* <Route path="/category/:category/:postId" component={PostDetails} /> */}
           {/* <Route component={NotFound} /> */}
         </Switch>

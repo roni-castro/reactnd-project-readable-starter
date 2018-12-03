@@ -1,11 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Form, FormGroup, Label, Input, Col, Card, Button } from 'reactstrap';
-import * as uuidv4 from 'uuid';
-import { newPostAPI } from '../actions/postActions';
+import { newPostAPI, editPostByIdAPI, getPostByIdAPI } from '../actions/postActions';
 import NavDropdownMenu from './NavDropdownMenu';
 class AddOrEditPost extends React.Component {
     state = {
+        isEditing: false,
+        isDisabledButton: false,
         post: {
             id: null,
             timestamp: null,
@@ -15,8 +16,32 @@ class AddOrEditPost extends React.Component {
             category: null
         }
     }
+
+    componentDidMount() {
+        const { match } = this.props
+        const postId = match.params.postId
+        if(postId === undefined) {
+           this.setState({
+                isEditing: false
+            })
+        } else {
+            this.setState({
+                isEditing: true
+            })
+            this.props.fetchPostById(postId)
+        }
+    }
     
-    handleChange = (event) => {
+    componentWillReceiveProps(props) {
+        const postToBeEdited = props.editingPost
+        if (postToBeEdited) {
+          this.setState({
+              post: postToBeEdited
+          })
+        }
+      }
+
+	handleChange = (event) => {
         this.setState({
             post: {
                 ...this.state.post,
@@ -25,47 +50,49 @@ class AddOrEditPost extends React.Component {
         })
     }
 
-    // onPostSuccess = (response) => {
-    //     this.props.history.push(`/post/${response.id}`);
-    // }
 
     onSubmit = (event) => {
         event.preventDefault()
-
-        const body = {
-            ...this.state.post,
-            id: uuidv4(),
-            timestamp: Date.now()
+        if(this.state.isDisabledButton){
+            return
         }
 
-        this.props.newPost(body)
-        this.props.history.push('/');
+        if(this.state.isEditing) {
+            this.props.editPost(this.state.post)
+            this.props.history.goBack();
+        } else {
+            this.props.newPost(this.state.post)
+            this.props.history.push('/');
+        }
+        this.setState({isDisabledButton: true});
     }
 
     render() {
         const {categories} = this.props
+        const post = this.state.post
         return (
             <div>
                 <NavDropdownMenu />
-                <h1>Create new Post</h1>
+                <h1>{this.state.isEditing ? "Edit Post" : "Create new Post"}</h1>
                 <Card body>
                     <Form onSubmit={this.onSubmit}>
                         <FormGroup row>
                             <Label for="title" sm={2}>Title</Label>
                             <Col sm={10}>
-                                <Input required type="text" name="title" onChange={this.handleChange} placeholder="Type the title" />
+                                <Input required value={post.title} type="text" name="title" 
+                                onChange={this.handleChange} placeholder="Type the title" />
                             </Col>
                         </FormGroup>
                         <FormGroup row>
                             <Label for="body" sm={2}>Body</Label>
                             <Col sm={10}>
-                                <Input required type="textarea" name="body" onChange={this.handleChange} placeholder="Type the content" />
+                                <Input required value={post.body} type="textarea" name="body" onChange={this.handleChange} placeholder="Type the content" />
                             </Col>
                         </FormGroup>
                         <FormGroup row>
                             <Label for="author" sm={2}>Author</Label>
                             <Col sm={10}>
-                                <Input type="text" name="author" onChange={this.handleChange} placeholder="Type the author name" />
+                                <Input type="text" value={post.author} name="author" onChange={this.handleChange} placeholder="Type the author name" />
                             </Col>
                         </FormGroup>
                         <FormGroup row>
@@ -80,7 +107,7 @@ class AddOrEditPost extends React.Component {
                                 </Input>
                             </Col>
                         </FormGroup>
-                        <Button type="submit" color="secondary" size="lg">Create</Button>
+                        <Button type="submit" disabled={this.state.isDisabledButton} color="secondary" size="lg">{this.state.isEditing ? "Save" : "Create"}</Button>
                     </Form> 
                 </Card>
             </div>
@@ -88,16 +115,20 @@ class AddOrEditPost extends React.Component {
     }
 }
 
-function mapStateToProps({categoryReducer}) {
+function mapStateToProps({categoryReducer, singlePostReducer}) {
     return {
-        categories: categoryReducer.categories || []
+        categories: categoryReducer.categories || [],
+        editingPost: singlePostReducer.post
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        newPost: (data) => dispatch(newPostAPI(data))
+        newPost: (data) => dispatch(newPostAPI(data)),
+        editPost: (postId) => dispatch(editPostByIdAPI(postId)),
+        fetchPostById: (postId) => dispatch(getPostByIdAPI(postId))
     }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddOrEditPost);
+
