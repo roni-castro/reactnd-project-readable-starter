@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { getPostByIdAPI, deletePostByIdAPI } from '../actions/postActions';
 import NavDropdownMenu from './NavDropdownMenu';
 import ModalConfirmation from './ModalConfirmation'
+import CommentInput from './CommentInput'
 
 class PostDetailContent extends React.Component {
 
@@ -74,7 +75,9 @@ class PostDetailContent extends React.Component {
                         </Jumbotron>
                     </Col>
                 </Row>
+                <CommentInput />
             </Container>
+           
             </div>
         )
     }
