@@ -54,3 +54,43 @@ export const editPost = (post) =>
     headers,
   })
   .then(res => res.json())
+
+export const fetchCommentById = (commentId) =>
+  fetch(`${api}/comments/${commentId}`, { headers })
+      .then(res => res.json())
+
+export const fetchAllPostComments = (postId) => 
+  fetch(`${api}/posts/${postId}/comments`, { headers })
+    .then(res => res.json())
+
+export const editComment = (comment) => 
+  fetch(`${api}/comments/${comment.id}`, {
+    method: 'PUT',
+    body: JSON.stringify(comment),
+    headers,
+  })
+  .then(res => res.json())
+
+export const updateCommentVote = (commentId, params) => 
+  fetch(`${api}/comments/${commentId}`, {
+    method: 'POST',
+    body: JSON.stringify({option: params}),
+    headers,
+  })
+  .then(response => response.json())
+  .catch(err => console.log(err))
+
+export const deleteComment = (comment) => 
+  fetch(`${api}/comments/${comment.id}`, {
+    method: 'DELETE',
+    headers,
+  })
+  .then(res => res.json())
+
+export const createComment = (comment) => 
+  fetch(`${api}/comments`, {
+    method: 'PUT',
+    body: JSON.stringify(comment),
+    headers,
+  })
+  .then(res => res.json())
