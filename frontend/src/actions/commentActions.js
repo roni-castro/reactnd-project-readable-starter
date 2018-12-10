@@ -4,6 +4,8 @@ import {
     GET_ALL_COMMENTS_FAILURE,
     GET_SINGLE_COMMENT_SUCCESS,
     GET_SINGLE_COMMENT_FAILURE,
+    COMMENT_UP_VOTE_FAILURE,
+    COMMENT_UP_VOTE_SUCCESS,
 } from './index'
 
 export function fetchCommentByIdAPI(commentId) {
@@ -51,3 +53,22 @@ function onFetchAllPostCommentsError(err) {
         payload: err
     }
 }
+
+export function updateCommentVoteAPI(commentId, voteType) {
+    return (dispatch) => {
+        ServerAPI
+        .updateCommentVote(commentId, voteType)
+        .then((comment) => dispatch(onUpdateVoteSuccess(comment)))
+        .catch((err) => dispatch(onUpdateVoteError(err)))
+    }
+}
+
+const onUpdateVoteSuccess = (comment) => ({
+    type: COMMENT_UP_VOTE_SUCCESS,
+    payload: comment
+})
+
+const onUpdateVoteError = (error) => ({
+    type: COMMENT_UP_VOTE_FAILURE,
+    payload: error
+})

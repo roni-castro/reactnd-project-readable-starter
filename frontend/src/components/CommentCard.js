@@ -4,7 +4,7 @@ import * as moment from 'moment';
 import { VoteUpAndDown } from './VoteUpAndDown';
 import { Container } from 'reactstrap';
 
-export const CommentCard = ({comment}, onVoteUp, onVoteDown) => (
+export const CommentCard = ({comment, onVoteUp, onVoteDown}) => (
     <div>
         <Container fluid>
             <small className="text"><strong>{comment.author}</strong></small>

@@ -10,8 +10,7 @@ import { getPostByIdAPI, deletePostByIdAPI } from '../actions/postActions';
 import NavDropdownMenu from './NavDropdownMenu';
 import ModalConfirmation from './ModalConfirmation';
 import CommentInput from './CommentInput';
-import { CommentCardList } from './CommentCardList';
-import { fetchAllPostCommentsAPI } from '../actions/commentActions';
+import CommentCardList from './CommentCardList';
 
 class PostDetailContent extends React.Component {
 
@@ -23,7 +22,6 @@ class PostDetailContent extends React.Component {
         const { match } = this.props
         const postId = match.params.postId
         this.props.fetchPostById(postId)
-        this.props.fetchAllPostComments(postId)
     } 
 
     onRemovePostButtonClicked = () => {
@@ -42,7 +40,7 @@ class PostDetailContent extends React.Component {
     }
 
     render() {
-        let { post, comments } = this.props
+        let { post } = this.props
         return (
             <div>
                 <NavDropdownMenu/>
@@ -79,10 +77,13 @@ class PostDetailContent extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col><CommentInput /></Col>
+                    <Col><CommentInput/></Col>
                 </Row>
                 <Row>
-                    <Col><CommentCardList comments={comments}/></Col>
+                    <Col>
+                    {console.log(post.id)}
+                        <CommentCardList postId={post.id} />
+                    </Col>
                 </Row>
             </Container>
            
@@ -95,20 +96,16 @@ PostDetailContent.propType = {
     post: PropTypes.object.isRequired
 }
 
-function mapStateToProps({ singlePostReducer, commentsReducer }) {
+function mapStateToProps({ singlePostReducer }) {
     return {
-        post: singlePostReducer.post,
-        comments: commentsReducer.comments
+        post: singlePostReducer.post
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         fetchPostById: (postId) => dispatch(getPostByIdAPI(postId)),
-        fetchAllPostComments: (postId) => dispatch(fetchAllPostCommentsAPI(postId)),
         deletePostById: (postId) => dispatch(deletePostByIdAPI(postId)),
-        // upVote: (postId) => dispatch(updateVoteAPI(postId, "upVote")),
-        // downVote: (postId) => dispatch(updateVoteAPI(postId, "downVote"))
     }
 }
 

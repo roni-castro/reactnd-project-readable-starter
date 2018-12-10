@@ -1,9 +1,11 @@
-import { 
-    GET_ALL_COMMENTS_SUCCESS, 
-    GET_ALL_COMMENTS_FAILURE, 
+import {
+    GET_ALL_COMMENTS_SUCCESS,
+    GET_ALL_COMMENTS_FAILURE,
     GET_SINGLE_COMMENT_SUCCESS,
-    GET_SINGLE_COMMENT_FAILURE
-} from '../actions' 
+    GET_SINGLE_COMMENT_FAILURE,
+    COMMENT_UP_VOTE_SUCCESS,
+    COMMENT_UP_VOTE_FAILURE,
+} from '../actions'
 
 const singleCommentStartState = {
     comment: {},
@@ -11,14 +13,14 @@ const singleCommentStartState = {
 };
 
 export function singleCommentReducer(state = singleCommentStartState, action) {
-    switch(action.type) {
-        case GET_SINGLE_COMMENT_SUCCESS: 
+    switch (action.type) {
+        case GET_SINGLE_COMMENT_SUCCESS:
             return {
                 ...state,
                 comment: action.payload,
                 error: null
             }
-        case GET_SINGLE_COMMENT_FAILURE: 
+        case GET_SINGLE_COMMENT_FAILURE:
             return {
                 ...state,
                 error: action.payload
@@ -34,14 +36,25 @@ const commentsStartState = {
 };
 
 export function commentsReducer(state = commentsStartState, action) {
-    switch(action.type) {
-        case GET_ALL_COMMENTS_SUCCESS: 
+    switch (action.type) {
+        case GET_ALL_COMMENTS_SUCCESS:
             return {
                 ...state,
                 comments: action.payload,
                 error: null
             }
-        case GET_ALL_COMMENTS_FAILURE: 
+        case GET_ALL_COMMENTS_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            }
+        case COMMENT_UP_VOTE_SUCCESS:
+            return {
+                ...state,
+                comments: state.comments.map(comment => comment.id === action.payload.id ? action.payload : comment),
+                error: null
+            }
+        case COMMENT_UP_VOTE_FAILURE:
             return {
                 ...state,
                 error: action.payload

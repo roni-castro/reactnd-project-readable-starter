@@ -78,7 +78,7 @@ CommentInput.propType = {
 
 function mapStateToProps({singleCommentReducer}) {
     return {
-        commentToBeEdited: singleCommentReducer.comment
+        // commentToBeEdited: singleCommentReducer.comment
     }
 }
 
