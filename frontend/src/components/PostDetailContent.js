@@ -8,8 +8,10 @@ import * as moment from 'moment';
 import { connect } from 'react-redux';
 import { getPostByIdAPI, deletePostByIdAPI } from '../actions/postActions';
 import NavDropdownMenu from './NavDropdownMenu';
-import ModalConfirmation from './ModalConfirmation'
-import CommentInput from './CommentInput'
+import ModalConfirmation from './ModalConfirmation';
+import CommentInput from './CommentInput';
+import { CommentCardList } from './CommentCardList';
+import { fetchAllPostCommentsAPI } from '../actions/commentActions';
 
 class PostDetailContent extends React.Component {
 
@@ -21,6 +23,7 @@ class PostDetailContent extends React.Component {
         const { match } = this.props
         const postId = match.params.postId
         this.props.fetchPostById(postId)
+        this.props.fetchAllPostComments(postId)
     } 
 
     onRemovePostButtonClicked = () => {
@@ -39,7 +42,7 @@ class PostDetailContent extends React.Component {
     }
 
     render() {
-        let { post } = this.props
+        let { post, comments } = this.props
         return (
             <div>
                 <NavDropdownMenu/>
@@ -75,7 +78,12 @@ class PostDetailContent extends React.Component {
                         </Jumbotron>
                     </Col>
                 </Row>
-                <CommentInput />
+                <Row>
+                    <Col><CommentInput /></Col>
+                </Row>
+                <Row>
+                    <Col><CommentCardList comments={comments}/></Col>
+                </Row>
             </Container>
            
             </div>
@@ -87,15 +95,17 @@ PostDetailContent.propType = {
     post: PropTypes.object.isRequired
 }
 
-function mapStateToProps({ singlePostReducer }) {
+function mapStateToProps({ singlePostReducer, commentsReducer }) {
     return {
-        post: singlePostReducer.post
+        post: singlePostReducer.post,
+        comments: commentsReducer.comments
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         fetchPostById: (postId) => dispatch(getPostByIdAPI(postId)),
+        fetchAllPostComments: (postId) => dispatch(fetchAllPostCommentsAPI(postId)),
         deletePostById: (postId) => dispatch(deletePostByIdAPI(postId)),
         // upVote: (postId) => dispatch(updateVoteAPI(postId, "upVote")),
         // downVote: (postId) => dispatch(updateVoteAPI(postId, "downVote"))
