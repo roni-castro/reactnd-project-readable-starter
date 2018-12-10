@@ -8,7 +8,9 @@ import * as moment from 'moment';
 import { connect } from 'react-redux';
 import { getPostByIdAPI, deletePostByIdAPI } from '../actions/postActions';
 import NavDropdownMenu from './NavDropdownMenu';
-import ModalConfirmation from './ModalConfirmation'
+import ModalConfirmation from './ModalConfirmation';
+import CommentInput from './CommentInput';
+import CommentCardList from './CommentCardList';
 
 class PostDetailContent extends React.Component {
 
@@ -74,7 +76,18 @@ class PostDetailContent extends React.Component {
                         </Jumbotron>
                     </Col>
                 </Row>
+                <Row>
+                    <Col>
+                        <CommentInput postId={post.id}/>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <CommentCardList postId={post.id} />
+                    </Col>
+                </Row>
             </Container>
+           
             </div>
         )
     }
@@ -94,8 +107,6 @@ function mapDispatchToProps(dispatch) {
     return {
         fetchPostById: (postId) => dispatch(getPostByIdAPI(postId)),
         deletePostById: (postId) => dispatch(deletePostByIdAPI(postId)),
-        // upVote: (postId) => dispatch(updateVoteAPI(postId, "upVote")),
-        // downVote: (postId) => dispatch(updateVoteAPI(postId, "downVote"))
     }
 }
 

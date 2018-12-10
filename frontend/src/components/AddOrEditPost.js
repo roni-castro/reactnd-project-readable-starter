@@ -50,7 +50,6 @@ class AddOrEditPost extends React.Component {
         })
     }
 
-
     onSubmit = (event) => {
         event.preventDefault()
         if(this.state.isDisabledButton){
