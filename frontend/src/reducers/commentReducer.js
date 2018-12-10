@@ -5,6 +5,8 @@ import {
     GET_SINGLE_COMMENT_FAILURE,
     COMMENT_UP_VOTE_SUCCESS,
     COMMENT_UP_VOTE_FAILURE,
+    CREATE_COMMENT_SUCCESS,
+    CREATE_COMMENT_FAILURE,
 } from '../actions'
 
 const singleCommentStartState = {
@@ -55,6 +57,17 @@ export function commentsReducer(state = commentsStartState, action) {
                 error: null
             }
         case COMMENT_UP_VOTE_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            }
+        case CREATE_COMMENT_SUCCESS:
+            return {
+                ...state,
+                comments: [...state.comments, action.payload],
+                error: null
+            }
+        case CREATE_COMMENT_FAILURE:
             return {
                 ...state,
                 error: action.payload

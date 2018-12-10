@@ -77,11 +77,12 @@ class PostDetailContent extends React.Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col><CommentInput/></Col>
+                    <Col>
+                        <CommentInput postId={post.id}/>
+                    </Col>
                 </Row>
                 <Row>
                     <Col>
-                    {console.log(post.id)}
                         <CommentCardList postId={post.id} />
                     </Col>
                 </Row>

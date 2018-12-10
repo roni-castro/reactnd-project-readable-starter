@@ -89,7 +89,7 @@ export const deleteComment = (comment) =>
 
 export const createComment = (comment) => 
   fetch(`${api}/comments`, {
-    method: 'PUT',
+    method: 'POST',
     body: JSON.stringify(comment),
     headers,
   })
