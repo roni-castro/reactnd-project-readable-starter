@@ -10,6 +10,8 @@ import {
     CREATE_COMMENT_FAILURE,
     EDIT_COMMENT_SUCCESS,
     EDIT_COMMENT_FAILURE,
+    DELETE_COMMENT_SUCCESS,
+    DELETE_COMMENT_FAILURE,
 } from './index'
 import * as uuidv4 from 'uuid';
 
@@ -119,5 +121,24 @@ const onEditCommentSuccess = (comment) => ({
 
 const onEditCommentError = (error) => ({
     type: EDIT_COMMENT_FAILURE,
+    payload: error
+})
+
+export function deleteCommentAPI(commentId) {
+    return (dispatch) => {
+        ServerAPI
+        .deleteComment(commentId)
+        .then((comment) => dispatch(onDeleteCommentSuccess(comment)))
+        .catch((err) => dispatch(onDeleteCommentError(err)))
+    }
+}
+
+const onDeleteCommentSuccess = (comment) => ({
+    type: DELETE_COMMENT_SUCCESS,
+    payload: comment
+})
+
+const onDeleteCommentError = (error) => ({
+    type: DELETE_COMMENT_FAILURE,
     payload: error
 })

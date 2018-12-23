@@ -80,8 +80,8 @@ export const updateCommentVote = (commentId, params) =>
   .then(response => response.json())
   .catch(err => console.log(err))
 
-export const deleteComment = (comment) => 
-  fetch(`${api}/comments/${comment.id}`, {
+export const deleteComment = (commentId) => 
+  fetch(`${api}/comments/${commentId}`, {
     method: 'DELETE',
     headers,
   })

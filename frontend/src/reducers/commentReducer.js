@@ -7,6 +7,10 @@ import {
     COMMENT_UP_VOTE_FAILURE,
     CREATE_COMMENT_SUCCESS,
     CREATE_COMMENT_FAILURE,
+    EDIT_COMMENT_SUCCESS,
+    EDIT_COMMENT_FAILURE,
+    DELETE_COMMENT_SUCCESS,
+    DELETE_COMMENT_FAILURE,
 } from '../actions'
 
 const singleCommentStartState = {
@@ -42,7 +46,7 @@ export function commentsReducer(state = commentsStartState, action) {
         case GET_ALL_COMMENTS_SUCCESS:
             return {
                 ...state,
-                comments: action.payload,
+                comments: action.payload.filter(comment => comment.deleted === false),
                 error: null
             }
         case GET_ALL_COMMENTS_FAILURE:
@@ -68,6 +72,28 @@ export function commentsReducer(state = commentsStartState, action) {
                 error: null
             }
         case CREATE_COMMENT_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            }
+        case EDIT_COMMENT_SUCCESS:
+            return {
+                ...state,
+                comments: state.comments.map((comment => comment.id === action.payload.id ? action.payload : comment)),
+                error: null
+            }
+        case EDIT_COMMENT_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            }
+        case DELETE_COMMENT_SUCCESS:
+            return {
+                ...state,
+                comments: state.comments.filter(comment => comment.id !== action.payload.id),
+                error: null
+            }
+        case DELETE_COMMENT_FAILURE:
             return {
                 ...state,
                 error: action.payload
