@@ -19,12 +19,7 @@ class CommentCardList extends React.Component {
         this.props.fetchAllPostComments(this.props.postId)
     } 
 
-    onEditCommentButtonClicked = (comment) => {
-        console.log(comment);
-    }
-
     onRemoveCommentButtonClicked = (comment) => {
-
         this.setState({
             isModalDeleteOpen: true,
             commentIdToBeRemoved: comment.id,
