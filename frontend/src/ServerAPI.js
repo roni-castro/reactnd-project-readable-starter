@@ -1,7 +1,7 @@
 
 const api = "http://localhost:3001"
 
-let authorizationToken = Math.random().toString(36).substr(-8)
+let authorizationToken = '123'
 
 const headers = {
   'Accept': 'application/json',
@@ -80,8 +80,8 @@ export const updateCommentVote = (commentId, params) =>
   .then(response => response.json())
   .catch(err => console.log(err))
 
-export const deleteComment = (comment) => 
-  fetch(`${api}/comments/${comment.id}`, {
+export const deleteComment = (commentId) => 
+  fetch(`${api}/comments/${commentId}`, {
     method: 'DELETE',
     headers,
   })

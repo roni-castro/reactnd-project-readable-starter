@@ -26,6 +26,7 @@ const initialState = {
 class CommentInput extends React.Component {
     state = initialState
 
+
     componentDidMount() {
         const {commentId, postId} = this.props
         if(commentId === undefined) {
@@ -46,11 +47,13 @@ class CommentInput extends React.Component {
     }
 
     componentWillReceiveProps(props) {
-        const commentToBeEdited = props.commentToBeEdited
-        if (commentToBeEdited) {
-            this.setState({
-                comment: commentToBeEdited
-            })
+        if(this.state.isEditing) {
+            const commentToBeEdited = props.commentToBeEdited
+            if (commentToBeEdited) {
+                this.setState({
+                    comment: commentToBeEdited
+                })
+            }
         }
     }
 
@@ -74,6 +77,7 @@ class CommentInput extends React.Component {
         
         if(this.state.isEditing) {
             this.props.editComment(this.state.comment)
+            this.props.onUpdateButtonClicked()
         } else {
             this.props.createComment(this.state.comment)
         }
@@ -85,21 +89,30 @@ class CommentInput extends React.Component {
     }
 
     render() {
+        const { onCancelButtonClicked } = this.props
         const comment = this.state.comment
         const isDisabledButton = !this.areAllFieldValid()
-        console.log(isDisabledButton)
         return (
             <div>
                 <Form onSubmit={this.onSubmit}>
+                    {!this.state.isEditing && 
                     <InputGroup>
                         <InputGroupAddon addonType="prepend">
                         <Input required value={comment.author} type="text" onChange={this.handleChange} name="author" placeholder="Author name" />
                         </InputGroupAddon>
                         <Input required value={comment.body} type="text" name="body" onChange={this.handleChange} placeholder="Add a comment..." />
                         <InputGroupAddon addonType="append">
-                        <Button disabled={isDisabledButton} type="submit" color="success">{this.state.isEditing ? "Update" : "Send"}</Button>
+                        <Button disabled={isDisabledButton} type="submit" color="success">Send</Button>
                         </InputGroupAddon>
-                    </InputGroup>
+                    </InputGroup>}
+                    {this.state.isEditing && 
+                    <InputGroup>
+                        <Input required value={comment.body} type="text" name="body" onChange={this.handleChange} placeholder="Edit a comment..." />
+                        <InputGroupAddon addonType="append">
+                            <Button disabled={isDisabledButton} type="submit" color="success">Update</Button>
+                            <Button onClick={() => onCancelButtonClicked()} name="cancel" type="button" color="secondary">Cancel</Button>
+                        </InputGroupAddon>
+                    </InputGroup>}
                 </Form>
             </div>
         )
@@ -110,12 +123,14 @@ CommentInput.propType = {
     commentToBeEdited: PropTypes.object.isRequired,
     commentId: PropTypes.string,
     postId: PropTypes.string,
-    fetchCommentById: PropTypes.func.isRequired
+    fetchCommentById: PropTypes.func.isRequired,
+    onCancelButtonClicked: PropTypes.func,
+    onUpdateButtonClicked: PropTypes.func
 }
 
-function mapStateToProps({singleCommentReducer}) {
+function mapStateToProps({singleCommentReducer}, ownProps) {
     return {
-        commentToBeEdited: singleCommentReducer.comment
+        commentToBeEdited: singleCommentReducer.comment,
     }
 }
 
