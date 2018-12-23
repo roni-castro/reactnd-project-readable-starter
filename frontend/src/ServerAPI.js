@@ -1,7 +1,7 @@
 
 const api = "http://localhost:3001"
 
-let authorizationToken = Math.random().toString(36).substr(-8)
+let authorizationToken = '123'
 
 const headers = {
   'Accept': 'application/json',
