@@ -17,29 +17,14 @@ class App extends Component {
 
   render() {
     return (
-        // <div>
-          
-        //     {/* {this.state.categories.map((category) => (
-        //        <Route key={category.name} path={`${category.path}`} />
-        //     ))} */}
-        //   <Route exact path="/" component={Home}/>
-        //   <Route exact path="/post" render={() => (
-        //     <AddOrEditPost  
-        //       // categories={this.state.categories}
-        //       // onPostCreated={this.onPostCreated}
-        //     />
-        //   )}/>
-        // </div>
       <div>
         
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/post" component={AddOrEditPost} />
-          <Route exact path="/category/:categoryPath" component={ Category } />
-          <Route exact path="/post/:postId" component={ PostDetailContent } />
-          <Route exact path="/post/:postId/edit" component={ AddOrEditPost } />
-          {/* <Route path="/category/:category/:postId" component={PostDetails} /> */}
-          {/* <Route component={NotFound} /> */}
+          <Route exact path="/category/:categoryId" component={ Category } />
+          <Route exact path="/category/:categoryId/post/:postId" component={ PostDetailContent } />
+          <Route exact path="/category/:categoryId/post/:postId/edit" component={ AddOrEditPost } />
         </Switch>
       </div>
     );

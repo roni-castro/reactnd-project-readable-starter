@@ -100,7 +100,7 @@ class AddOrEditPost extends React.Component {
                                 <Col sm={10}>
                                     <Input type="select" name="category" onChange={this.handleChange}>
                                         {categories.map((category) => (
-                                            <option key={category.name} value={category.name}>
+                                            <option selected={post.category === category.name} key={category.name} value={category.name}>
                                                 {category.name}
                                             </option>
                                         ))}

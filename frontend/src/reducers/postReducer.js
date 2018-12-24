@@ -63,6 +63,16 @@ export function postReducer(state = initialState, action) {
                 ...state,
                 err: action.payload
             }
+        case EDIT_POST_SUCCESS:
+            return {
+                ...state,
+                posts: state.posts.map(post => post.id === action.payload.id ? action.payload : post), 
+        }
+        case EDIT_POST_FAILURE:
+            return {
+              ...state,
+              error: action.payload
+        }
         default:
             return state;
     }
@@ -88,6 +98,8 @@ export function singlePostReducer(state = singlePostStartState, action) {
                 error: action.payload
             }
         case EDIT_POST_SUCCESS:
+            console.log('action.payload')
+            console.log(action.payload)
             return {
                 ...state,
                 post: action.payload,
