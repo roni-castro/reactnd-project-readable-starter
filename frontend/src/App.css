@@ -40,3 +40,24 @@
   bottom: 10;
   right: 10;
 }
+
+.flex {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+
+.fab {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
+}
+
+.flex-center-vertical {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}

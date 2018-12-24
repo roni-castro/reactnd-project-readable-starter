@@ -7,6 +7,8 @@ export const Home = () => (
     <div>
         <NavDropdownMenu />
         <PostBody title="Home"/>
-        <FloatingActionButtons />
+        <div className="fab">
+            <FloatingActionButtons />
+        </div>
     </div>
 )

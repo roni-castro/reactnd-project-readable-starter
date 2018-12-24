@@ -27,11 +27,10 @@ class CommentCardList extends React.Component {
     }
 
     deleteCommentConfirmed = () => {
-        this.props.deleteComment(this.state.commentIdToBeRemoved)
         this.setState({
             isModalDeleteOpen: false,
             commentIdToBeRemoved: null,
-        })
+        }, this.props.deleteComment(this.state.commentIdToBeRemoved))
     }
 
     render() {
