@@ -8,6 +8,7 @@ import PostDetailContent from './PostDetailContent';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchCategoriesAPI } from '../actions/categoryActions';
+import { State404 } from './State404';
 
 class App extends Component {
 
@@ -25,6 +26,7 @@ class App extends Component {
           <Route exact path="/category/:categoryId" component={ Category } />
           <Route exact path="/category/:categoryId/post/:postId" component={ PostDetailContent } />
           <Route exact path="/category/:categoryId/post/:postId/edit" component={ AddOrEditPost } />
+          <Route component={ State404 } />
         </Switch>
       </div>
     );

@@ -94,20 +94,18 @@ export function singlePostReducer(state = singlePostStartState, action) {
         case GET_SINGLE_POST_FAILURE:
             return {
                 ...state,
-                post: {},
+                post: undefined,
                 error: action.payload
             }
         case EDIT_POST_SUCCESS:
-            console.log('action.payload')
-            console.log(action.payload)
             return {
                 ...state,
                 post: action.payload,
         }
         case EDIT_POST_FAILURE:
             return {
-              ...state,
-              error: action.payload
+                ...state,
+                error: action.payload
         }
         default: 
             return state;
