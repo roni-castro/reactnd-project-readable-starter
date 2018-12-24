@@ -42,7 +42,7 @@ class PostDetailContent extends React.Component {
     }
 
     onEditPostButtonClicked = () => {
-        this.props.history.push(`/category/${this.props.post.category}/post/${this.props.post.id}/edit`);
+        this.props.history.push(`/${this.props.post.category}/post/${this.props.post.id}/edit`);
     }
 
     deletePost = (postId) => {

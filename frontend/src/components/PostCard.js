@@ -8,7 +8,7 @@ export const PostCard = ({post}) => (
     <div>
          <Card body outline color="secondary">
             <CardTitle>
-                <Link to={`/category/${post.category}/post/${post.id}`}>{post.title}</Link>
+                <Link to={`/${post.category}/post/${post.id}`}>{post.title}</Link>
             </CardTitle>
             <CardText>{post.body}</CardText>
             <CardText>

@@ -44,7 +44,7 @@ componentDidMount() {
               </NavItem>
               {categories.map((category) => (
                 <NavItem key={category.name} >
-                  <NavLink href={`/category/${category.name}`}>{category.name}</NavLink>
+                  <NavLink href={`/${category.name}`}>{category.name}</NavLink>
                 </NavItem>
               ))}
             </Nav>
