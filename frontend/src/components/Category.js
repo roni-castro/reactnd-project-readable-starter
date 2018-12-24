@@ -5,7 +5,7 @@ import NavDropdownMenu from './NavDropdownMenu';
 export default class Category extends React.Component {
     render() {
       const { match } = this.props
-      const category = match.params.categoryPath
+      const category = match.params.categoryId
   
       return (
         <div>

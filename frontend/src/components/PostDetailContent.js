@@ -11,10 +11,12 @@ import NavDropdownMenu from './NavDropdownMenu';
 import ModalConfirmation from './ModalConfirmation';
 import CommentInput from './CommentInput';
 import CommentCardList from './CommentCardList';
+import { State404 } from './State404';
 
 class PostDetailContent extends React.Component {
 
     state = {
+        isLoading: false,
         isModalDeleteOpen: false
     }
     
@@ -22,21 +24,31 @@ class PostDetailContent extends React.Component {
         const { match } = this.props
         const postId = match.params.postId
         this.props.fetchPostById(postId)
+        this.setLoading(true)
     } 
+
+    componentWillReceiveProps(props) {
+        this.setLoading(false)
+    }
+
+    setLoading(isLoading) {
+        this.setState({
+            isLoading: isLoading
+        })
+    }
 
     onRemovePostButtonClicked = () => {
         this.toogle()
     }
 
     onEditPostButtonClicked = () => {
-        this.props.history.push(`/post/${this.props.post.id}/edit`);
+        this.props.history.push(`/category/${this.props.post.category}/post/${this.props.post.id}/edit`);
     }
 
     deletePost = (postId) => {
         this.props.deletePostById(postId)
         this.props.history.push('/')
     }
-
 
     toogle = () => {
         this.setState({
@@ -56,7 +68,9 @@ class PostDetailContent extends React.Component {
                     isModalOpen={this.state.isModalDeleteOpen}
                     handleSubmit={() => this.deletePost(post.id)}
                 />
-                <Container key={post.id}>
+                {console.log(" possssss"+ JSON.stringify(post))
+                 }
+                {post.id !== undefined && <Container key={post.id}>
                 <Row>
                     <Col>
                         <Jumbotron>
@@ -92,8 +106,8 @@ class PostDetailContent extends React.Component {
                         <CommentCardList postId={post.id} />
                     </Col>
                 </Row>
-            </Container>
-           
+            </Container>}
+           {post.id == undefined && !this.state.isLoading && <State404/>}
             </div>
         )
     }
@@ -104,6 +118,8 @@ PostDetailContent.propType = {
 }
 
 function mapStateToProps({ singlePostReducer }) {
+    console.log('singlePostReducer.post')
+    console.log(singlePostReducer.post)
     return {
         post: singlePostReducer.post
     }
