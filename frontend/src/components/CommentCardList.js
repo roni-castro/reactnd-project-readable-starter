@@ -21,16 +21,22 @@ class CommentCardList extends React.Component {
 
     onRemoveCommentButtonClicked = (comment) => {
         this.setState({
-            isModalDeleteOpen: true,
             commentIdToBeRemoved: comment.id,
         })
+        this.toogle()
     }
 
     deleteCommentConfirmed = () => {
         this.setState({
-            isModalDeleteOpen: false,
             commentIdToBeRemoved: null,
         }, this.props.deleteComment(this.state.commentIdToBeRemoved))
+        this.toogle()
+    }
+
+    toogle = () => {
+        this.setState({
+            isModalDeleteOpen: !this.state.isModalDeleteOpen
+        });
     }
 
     render() {
@@ -39,10 +45,11 @@ class CommentCardList extends React.Component {
         return (
             <div>
                 <ModalConfirmation 
-                    title="Deletar Comentário"
-                    message="Tem certeza que deseja remover este comentário?"
-                    show={this.state.isModalDeleteOpen}
-                    onConfirm={() => this.deleteCommentConfirmed()}
+                    title="Remove Comment"
+                    message="Are you sure?"
+                    toggleModal={this.toogle}
+                    isModalOpen={this.state.isModalDeleteOpen}
+                    handleSubmit={() => this.deleteCommentConfirmed()}
                 />
                 {orderedComments.map((comment) => (
                     <div key={comment.id}>

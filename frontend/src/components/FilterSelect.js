@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, Row, Col, InputGroup, InputGroupAddon, Label } from 'reactstrap';
+import { Input, Row, Col, InputGroup, InputGroupAddon } from 'reactstrap';
 
 export const FilterSelect = ({options, onFilterSelected, optionSelectedId}) => (
     <Row>

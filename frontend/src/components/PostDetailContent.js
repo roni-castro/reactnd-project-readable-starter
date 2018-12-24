@@ -25,9 +25,7 @@ class PostDetailContent extends React.Component {
     } 
 
     onRemovePostButtonClicked = () => {
-        this.setState({
-            isModalDeleteOpen: true
-        })
+        this.toogle()
     }
 
     onEditPostButtonClicked = () => {
@@ -39,16 +37,24 @@ class PostDetailContent extends React.Component {
         this.props.history.push('/')
     }
 
+
+    toogle = () => {
+        this.setState({
+            isModalDeleteOpen: !this.state.isModalDeleteOpen
+        });
+    }
+
     render() {
         let { post } = this.props
         return (
             <div>
                 <NavDropdownMenu/>
                 <ModalConfirmation 
-                    title="Remover Post"
-                    message="Tem certeza que deseja remover este post?"
-                    show={this.state.isModalDeleteOpen}
-                    onConfirm={() => this.deletePost(post.id)}
+                    title="Remove Post"
+                    message="Are you sure?"
+                    toggleModal={this.toogle}
+                    isModalOpen={this.state.isModalDeleteOpen}
+                    handleSubmit={() => this.deletePost(post.id)}
                 />
                 <Container key={post.id}>
                 <Row>

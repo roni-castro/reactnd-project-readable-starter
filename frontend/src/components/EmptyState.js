@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Input, Row, Col, InputGroup, Container, Card, CardTitle, CardText } from 'reactstrap';
+import { Container, Card, CardTitle, CardText } from 'reactstrap';
 
 export const EmptyState = ({title, message}) => (
    <Container>
