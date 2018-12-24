@@ -2,56 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-class ModalConfirmation extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      modal: false
-    };
-  }
+const ModalConfirmation = ({ title, message, handleSubmit, isModalOpen, toggleModal }) => (
+  <Modal isOpen={isModalOpen} toggle={toggleModal}>
+    <ModalHeader toggle={toggleModal}>{title}</ModalHeader>
+    <ModalBody>{message}</ModalBody>
+    <ModalFooter>
+      <Button color="secondary" onClick={toggleModal}>No</Button>
+      <Button color="danger" onClick={handleSubmit}>Yes</Button>{' '}
+    </ModalFooter>
 
-  toggle = () => {
-    this.setState({
-      modal: !this.state.modal
-    });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps !== this.props) {
-      this.setState({
-        modal: nextProps.show
-      })
-    }
-  }
-
-  onConfirm = () => {
-    this.toggle()
-    this.props.onConfirm()
-  }
-
-  render() {
-    return (
-      <div>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>{this.props.title}</ModalHeader>
-          <ModalBody>
-            {this.props.message}
-          </ModalBody>
-          <ModalFooter>
-            <Button color="danger" onClick={() => this.onConfirm()}>Yes</Button>
-            <Button color="secondary" onClick={() => this.toggle()}>No</Button>
-          </ModalFooter>
-        </Modal>
-      </div>
-    );
-  }
-}
+  </Modal>
+)
 
 ModalConfirmation.propType = {
-  show: PropTypes.bool.isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
-  onConfirm: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 }
 
 export default ModalConfirmation;

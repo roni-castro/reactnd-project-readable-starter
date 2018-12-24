@@ -35,7 +35,7 @@ export class CommentCard extends React.Component {
     render() {
         let { comment, onVoteUp, onVoteDown, onDeleteCommentButtonClicked } = this.props;
         return (
-            <div>
+            <div className="my-2">
                 <Container fluid>
                     <small className="text"><strong>{comment.author}</strong></small>
                     <br/>
@@ -45,12 +45,14 @@ export class CommentCard extends React.Component {
                         <p>{comment.body}</p>
                         <Row>
                             <Col xs="6">
-                                <VoteUpAndDown
-                                    quantityOfVotes={comment.voteScore} 
-                                    onVoteUp={onVoteUp} 
-                                    onVoteDown={onVoteDown} 
-                                    commentId={comment.id}
-                                />
+                                <div className="flex-center-vertical">
+                                    <VoteUpAndDown
+                                        quantityOfVotes={comment.voteScore} 
+                                        onVoteUp={onVoteUp} 
+                                        onVoteDown={onVoteDown} 
+                                        commentId={comment.id}
+                                    />
+                                </div>
                             </Col>
                             <Col xs="6" >
                                 <div className="text-right">

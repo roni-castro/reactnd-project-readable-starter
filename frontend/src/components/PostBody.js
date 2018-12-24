@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { PostCardList } from './PostCardList';
 import { FilterSelect } from './FilterSelect';
+import { EmptyState } from './EmptyState';
 import { getPostsAPI, updateVoteAPI } from '../actions/postActions';
+import { Container, Row, Col  } from 'reactstrap';
 import 
 { 
     VOTE_FILTER_TYPE, 
@@ -12,6 +14,7 @@ import
 
 class PostBody extends React.Component {
     state = {
+        isLoading: false,
         filterTypes:  [
             {id: VOTE_FILTER_TYPE, value: VOTE_FILTER_TYPE.toUpperCase()},
             {id: TIMESTAMP_FILTER_TYPE, value: TIMESTAMP_FILTER_TYPE.toUpperCase()}
@@ -20,8 +23,17 @@ class PostBody extends React.Component {
     }
     
     componentDidMount() {
+        this.setState({
+            isLoading: true
+        })
         this.props.getPosts()
     } 
+
+    componentWillReceiveProps(props) {
+        this.setState({
+            isLoading: false
+        })
+    }
 
     onFilterSelected = (event) => {
         let filterSelectedId = event.target.value
@@ -38,17 +50,25 @@ class PostBody extends React.Component {
         let orderedPosts = orderPosts(this.state.filterSelectedId, filteredPosts)
         return (
             <div>
-                <h1>{title? title.toUpperCase(): ''}</h1>
-                {orderedPosts.length > 0 &&
-                    <div>
-                        <FilterSelect 
-                            options={this.state.filterTypes}
-                            optionSelectedId={this.state.filterSelectedId}
-                            onFilterSelected={this.onFilterSelected} 
-                        />
-                        <PostCardList posts={orderedPosts} onVoteUp={upVote} onVoteDown={downVote}/>
-                    </div>
-                }
+                <Container>
+                    <Row>
+                        <Col>
+                            <h1 className="text-center my-4">{title? title.toUpperCase(): ''}</h1>
+                            <div>{this.state.isLoading === false && orderedPosts.length === 0 && 
+                                <EmptyState title="No Post Found" message="There is no post for this category"/>}</div>
+                            {orderedPosts.length > 0 &&
+                                <div>
+                                    <FilterSelect 
+                                        options={this.state.filterTypes}
+                                        optionSelectedId={this.state.filterSelectedId}
+                                        onFilterSelected={this.onFilterSelected} 
+                                    />
+                                    <PostCardList posts={orderedPosts} onVoteUp={upVote} onVoteDown={downVote}/>
+                                </div>
+                            }
+                        </Col>
+                    </Row>
+                </Container>
             </div>
         )
     }
