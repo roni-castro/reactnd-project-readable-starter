@@ -20,4 +20,18 @@ To get started developing right away:
 
 Information about the API server and how to use it can be found in its [README file](api-server/README.md).
 
-
+## Screenshots
+ Home <img alt="Home screen"  src="https://i.imgur.com/CzsvjDN.png"/>
+</br>
+ Post Detail with comments
+<img alt="Detail of a Post screen" src="https://i.imgur.com/E7npOqW.png"/>
+</br>
+ New Post
+<img alt="New Post screen"  src="https://i.imgur.com/mnckcs1.png"/>
+</br>
+ Edit Post
+<img alt="Edit Post screen"  src="https://i.imgur.com/kdMk3MB.png"/>
+</br>
+ Empty State
+<img alt="Empty state screen" src="https://i.imgur.com/9kXc2CN.png"/>
+</br>
