@@ -8,7 +8,7 @@ export const VoteUpAndDown = ({quantityOfVotes, onVoteUp, onVoteDown, postId, co
         {(commentId !== undefined || postId !== undefined) &&
             <div>
                 <MdThumbUp size={24} onClick={(value) => onVoteUp(postId || commentId)}/>
-                <Badge color="secondary">{quantityOfVotes? quantityOfVotes: 0}</Badge>
+                <Badge color={quantityOfVotes >=0 ? "success" : "danger"}>{quantityOfVotes || 0}</Badge>
                 <MdThumbDown size={24} onClick={(value) => onVoteDown(postId || commentId)}/>
             </div>
         }

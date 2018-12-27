@@ -57,7 +57,7 @@ export class CommentCard extends React.Component {
                             <Col xs="6" >
                                 <div className="text-right">
                                     <ButtonGroup size="sm" className="my-2">
-                                        <Button float-right onClick={() => this.onEditCommentButtonClicked()} color="primary">
+                                        <Button onClick={() => this.onEditCommentButtonClicked()} color="primary">
                                             <Icon size={16} icon={ic_mode_edit} />
                                         </Button>
                                         <Button onClick={() => onDeleteCommentButtonClicked(comment)} color="danger">
