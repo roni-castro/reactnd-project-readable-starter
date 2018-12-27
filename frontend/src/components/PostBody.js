@@ -12,13 +12,14 @@ import
     TIMESTAMP_FILTER_TYPE
 } from '../utils/Constants'
 
+const filterTypes = [
+    {id: VOTE_FILTER_TYPE, value: VOTE_FILTER_TYPE.toUpperCase()},
+    {id: TIMESTAMP_FILTER_TYPE, value: TIMESTAMP_FILTER_TYPE.toUpperCase()}
+];
+
 class PostBody extends React.Component {
     state = {
         isLoading: false,
-        filterTypes:  [
-            {id: VOTE_FILTER_TYPE, value: VOTE_FILTER_TYPE.toUpperCase()},
-            {id: TIMESTAMP_FILTER_TYPE, value: TIMESTAMP_FILTER_TYPE.toUpperCase()}
-        ],
         filterSelectedId: VOTE_FILTER_TYPE,
     }
     
@@ -43,7 +44,7 @@ class PostBody extends React.Component {
 
     render() {
         let {posts, upVote, downVote, title, category} = this.props
-        let filteredPosts = posts
+        let filteredPosts = posts.slice()
         if(category != null) {
             filteredPosts = posts.filter((post) => post.category === category)
         } 
@@ -59,7 +60,7 @@ class PostBody extends React.Component {
                             {orderedPosts.length > 0 &&
                                 <div>
                                     <FilterSelect 
-                                        options={this.state.filterTypes}
+                                        options={filterTypes}
                                         optionSelectedId={this.state.filterSelectedId}
                                         onFilterSelected={this.onFilterSelected} 
                                     />
