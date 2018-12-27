@@ -11,6 +11,8 @@ import {
     UP_VOTE_FAILURE,
     DELETE_POST_FAILURE,
     DELETE_POST_SUCCESS,
+    CREATE_COMMENT_SUCCESS,
+    DELETE_COMMENT_SUCCESS,
 } from '../actions' 
 
 const initialState = {
@@ -117,6 +119,24 @@ export function singlePostReducer(state = singlePostStartState, action) {
                 ...state,
                 error: action.payload
         }
+        case CREATE_COMMENT_SUCCESS:
+            return {
+                ...state,
+                post: {
+                    ...state.post,
+                    'commentCount': state.post.commentCount + 1
+                },
+                error: null
+            }
+        case DELETE_COMMENT_SUCCESS:
+            return {
+                ...state,
+                post: {
+                    ...state.post,
+                    'commentCount': state.post.commentCount - 1
+                },
+                error: null
+            }
         default: 
             return state;
     }
