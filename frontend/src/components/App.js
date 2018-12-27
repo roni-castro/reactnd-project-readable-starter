@@ -24,8 +24,8 @@ class App extends Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/post" component={AddOrEditPost} />
           <Route exact path="/:categoryId" component={ Category } />
-          <Route exact path=":categoryId/post/:postId" component={ PostDetailContent } />
-          <Route exact path="/:categoryId/post/:postId/edit" component={ AddOrEditPost } />
+          <Route exact path="/:categoryId/:postId" component={ PostDetailContent } />
+          <Route exact path="/:categoryId/:postId/edit" component={ AddOrEditPost } />
           <Route component={ State404 } />
         </Switch>
       </div>

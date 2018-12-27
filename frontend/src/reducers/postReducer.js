@@ -97,6 +97,16 @@ export function singlePostReducer(state = singlePostStartState, action) {
                 post: undefined,
                 error: action.payload
             }
+        case UP_VOTE_SUCCESS:
+            return {
+                ...state,
+                post: action.payload, 
+            }
+        case UP_VOTE_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            }
         case EDIT_POST_SUCCESS:
             return {
                 ...state,
